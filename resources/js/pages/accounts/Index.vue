@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
+import MetaTesterNotice from '@/components/accounts/MetaTesterNotice.vue';
 import NetworkConnectGrid, {
     type AvailablePlatform,
     type ConnectedAccount,
@@ -23,6 +24,8 @@ defineProps<{
                 :title="$t('accounts.page_title')"
                 :description="$t('accounts.description')"
             />
+
+            <MetaTesterNotice />
 
             <NetworkConnectGrid
                 :platforms="platforms"
