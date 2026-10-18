@@ -49,6 +49,12 @@ return [
         ],
     ],
 
+    'data_deletion' => [
+        'title' => 'Data deletion request',
+        'description' => 'Your data deletion request was received and processed. The social accounts connected through your Meta account, and their stored access tokens, have been deleted.',
+        'confirmation_code' => 'Confirmation code: :code',
+    ],
+
     'privacy' => [
         'title' => 'Privacy Policy',
         'sections' => [

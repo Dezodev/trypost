@@ -93,12 +93,13 @@ class InstagramFacebookController extends SocialController
             }
 
             if (count($pages) === 1) {
-                return $this->connectInstagramAccount($workspace, $pages[0], $existingAccount);
+                return $this->connectInstagramAccount($workspace, $pages[0], $existingAccount, $socialUser->getId());
             }
 
             // Multiple pages — show selection
             session([
                 'instagram_facebook_oauth' => [
+                    'user_id' => $socialUser->getId(),
                     'user_token' => $socialUser->token,
                     'pages' => $pages,
                     'reconnect_id' => $reconnectId,
@@ -175,7 +176,7 @@ class InstagramFacebookController extends SocialController
                 return $this->popupCallback(false, __('accounts.popup_callback.page_not_found'), $this->platform->value);
             }
 
-            $result = $this->connectInstagramAccount($workspace, $selectedPage, $existingAccount);
+            $result = $this->connectInstagramAccount($workspace, $selectedPage, $existingAccount, data_get($oauthData, 'user_id'));
 
             session()->forget(['instagram_facebook_oauth', 'social_reconnect_id']);
 
@@ -189,7 +190,7 @@ class InstagramFacebookController extends SocialController
         }
     }
 
-    private function connectInstagramAccount(Workspace $workspace, array $pageData, $existingAccount): InertiaResponse
+    private function connectInstagramAccount(Workspace $workspace, array $pageData, $existingAccount, ?string $facebookUserId = null): InertiaResponse
     {
         $avatarPath = data_get($pageData, 'ig_picture') ? uploadFromUrl(data_get($pageData, 'ig_picture')) : null;
 
@@ -205,6 +206,7 @@ class InstagramFacebookController extends SocialController
             'meta' => [
                 'page_id' => data_get($pageData, 'page_id'),
                 'page_name' => data_get($pageData, 'page_name'),
+                'user_id' => $facebookUserId,
             ],
         ];
 

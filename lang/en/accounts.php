@@ -110,6 +110,10 @@ return [
         'choose' => 'Choose',
     ],
 
+    'meta' => [
+        'deauthorized' => 'Access was removed from the Meta account settings. Reconnect the account to resume publishing.',
+    ],
+
     'flash' => [
         'disconnected' => 'Account disconnected successfully!',
         'connected' => 'Account connected successfully!',
