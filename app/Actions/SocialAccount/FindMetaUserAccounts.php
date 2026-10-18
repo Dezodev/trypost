@@ -23,6 +23,7 @@ class FindMetaUserAccounts
     public static function execute(string $userId): Collection
     {
         return SocialAccount::query()
+            ->with('workspace.owner')
             ->where(function (Builder $query) use ($userId): void {
                 $query->where(function (Builder $direct) use ($userId): void {
                     $direct->whereIn('platform', [Platform::Instagram->value, Platform::Threads->value])
